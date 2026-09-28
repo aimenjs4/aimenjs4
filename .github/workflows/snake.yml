@@ -1,4 +1,4 @@
-name: snake
+name: profile
 on:
   push:
   workflow_dispatch:
@@ -6,9 +6,21 @@ on:
 permissions:
   contents: write
 jobs:
-  snake:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: show_icons=true&theme=github_dark&hide_border=true&title_color=00d4aa&icon_color=00d4aa&ring_color=00d4aa
+          path: dist/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: layout=donut&theme=github_dark&hide_border=true&title_color=00d4aa
+          path: dist/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
